@@ -98,12 +98,12 @@ app.get('/courses', (req, res) => {
 // Handle enrollment via standard form POST (uses req.body only)
 app.post('/enroll', (req, res) => {
   const { studentName, studentId, courseCode, semester } = req.body;
-
+  const studentIdRegex = /^\d{4}-\d{4}$/;
    // Input validation
-  if (!studentId === string|'YYYY-NNNN') {
+  if (studentIdRegex.test(studentId)) {
     error.push('StudentID Invalid');
   }
-  if (!course === '') {
+  if (course ==='') {
     error.push('Course is required');
   }
 
