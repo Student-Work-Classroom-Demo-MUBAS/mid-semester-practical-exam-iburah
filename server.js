@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Use built-in body parser for HTML forms
 app.use(express.urlencoded({ extended: true }));
 
+
 /* ===== In-memory data ===== */
 const availableCourses = [
   { code: "CS401", name: "Advanced Web Development", instructor: "Dr. Smith", credits: 3, capacity: 30 },
@@ -100,9 +101,11 @@ app.post('/enroll', (req, res) => {
   const { studentName, studentId, courseCode, semester } = req.body;
   const studentIdRegex = /^\d{4}-\d{4}$/;
    // Input validation
-  if (studentIdRegex.test(studentId)) {
+  if (studentId = studentIdOk) {
     error.push('StudentID Invalid');
+    res.redirect('/');
   }
+  //validating if it empty
   if (course ==='') {
     error.push('Course is required');
   }
@@ -140,13 +143,24 @@ app.post('/enroll', (req, res) => {
 });
 
 // Unenroll (form POST)
-app.post('/unenroll/:id', (req, res) => {
+app.delete('/unenroll/:id', (req, res) => {
   // TODO:
+  const {id} = req.params;
+  const user = useSyncExternalStore.find((u)=>u.id === studentId);
+  
+  if (!user){
+    // 404 error handler
+    return res.status(404).send(page('Not Implemented', '<p class="muted">TODO: implement /unenroll/:id</p><p><a href="/enrollments">Back</a></p>'));
+  }user.unenrolled = false;
+ 
+
+
+
   // 1) Parse id from req.params
   // 2) Remove matching enrollment from array if found
   // 3) Redirect back to /enrollments (or show error)
 
-  return res.status(501).send(page('Not Implemented', '<p class="muted">TODO: implement /unenroll/:id</p><p><a href="/enrollments">Back</a></p>'));
+  //return res.status(501).send(page('Not Implemented', '<p class="muted">TODO: implement /unenroll/:id</p><p><a href="/enrollments">Back</a></p>'));
 });
 
 // Static last so dynamic routes above take priority
