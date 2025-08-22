@@ -35,8 +35,8 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px var(--ring);
 }
 .form-actions { display: flex; gap: .75rem; }
-button { appearance: none; border: 0; padding: .7rem 1rem; border-radius: 8px; background: var(--brand); color: #fff; cursor: pointer; font-weight: 600; }
-button:hover { background: var(--brand-600); }
+button { transition: transform 0.3s ease;appearance: none; border: 0; padding: .7rem 1rem; border-radius: 8px; background: var(--brand); color: #fff; cursor: pointer; font-weight: 600; transition: background-color 0.2s ease;}
+button:hover { background: var(--brand-600); transform: scale(1.05);}
 .secondary { background: #e5e7eb; color: #111827; }
 .secondary:hover { background: #d1d5db; }
 .danger { background: var(--danger); }
