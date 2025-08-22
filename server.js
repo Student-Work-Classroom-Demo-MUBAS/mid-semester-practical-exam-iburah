@@ -46,6 +46,8 @@ const courseByCode = code => availableCourses.find(c => c.code === code);
 // Home -> static form (index.html)
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
+
+
 // Server-rendered enrollments list (no JSON)
 app.get('/enrollments', (req, res) => {
   const rows = enrollments.map((e, i) => `
@@ -95,8 +97,31 @@ app.get('/courses', (req, res) => {
 
 // Handle enrollment via standard form POST (uses req.body only)
 app.post('/enroll', (req, res) => {
+  const { studentName, studentId, courseCode, semester } = req.body;
+
+   // Input validation
+  if (!studentId === string|'YYYY-NNNN') {
+    error.push('StudentID Invalid');
+  }
+  if (!course === '') {
+    error.push('Course is required');
+  }
+
+
+  // Create new object
+  const newEnroll = {
+    id: enrollmentIdCounter++,
+    studentName, studentId, courseCode, courseName: course.name,
+    semester, reason, enrollmentDate: Date.now()
+  };
+  enrollments.push(newEnroll);
+  res.redirect('/enrollments');
+
+
+
   // TODO:
   // 1) Read fields from req.body: studentName, studentId, courseCode, semester, reason(optional)
+
   // 2) Validate: required fields; studentId matches YYYY-NNNN; course exists
   // 3) Create enrollment object; push; increment id
   // 4) Redirect to /enrollments on success; otherwise show error page with Back link
